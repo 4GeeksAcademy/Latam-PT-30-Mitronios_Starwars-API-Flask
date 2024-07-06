@@ -126,7 +126,20 @@ def get_user_favorites(user_id):
 
 @app.route('/favorite/planet/<int:planet_id>', methods = ['POST'])
 def add_favorite_planet(planet_id):
-    user_id = 1 
+
+# Getting the user by id
+    request_data = request.json
+    user_id = request_data.get('user_id')
+
+    if user_id is None:
+        return jsonify({"Message": "Wait!: user_id needed"}), 400
+    
+    # Checking the user
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({"Message": "User not found"}), 404
+    
+    # Making the queries
     user = User.query.get(user_id)
     planet = Planet.query.get(planet_id)
     
@@ -146,7 +159,19 @@ def add_favorite_planet(planet_id):
 
 @app.route('/favorite/character/<int:character_id>', methods=['POST'])
 def add_favorite_character(character_id):
-    user_id = 1
+    # Getting the user by id
+    request_data = request.json
+    user_id = request_data.get('user_id')
+
+    if user_id is None:
+        return jsonify({"Message": "Wait!: user_id needed"}), 400
+    
+    # Checking the user
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({"Message": "User not found"}), 404
+    
+    # Making the query
     user = User.query.get(user_id)
     character = Character.query.get(character_id)
     
@@ -168,7 +193,19 @@ def add_favorite_character(character_id):
 
 @app.route('/favorite/planet/<int:planet_id>', methods=['DELETE'])
 def delete_favorite_planet(planet_id):
-    user_id = 1
+    # Getting the user by id
+    request_data = request.json
+    user_id = request_data.get('user_id')
+
+    if user_id is None:
+        return jsonify({"Message": "Wait!: user_id needed"}), 400
+    
+    # Checking the user
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({"Message": "User not found"}), 404
+    
+    # Making the queries
     user = User.query.get(user_id)
     favorite = Favorite.query.filter_by(user_id=user.id, planet_id=planet_id).first()
 
@@ -183,7 +220,19 @@ def delete_favorite_planet(planet_id):
 # Delete Fav Character
 @app.route('/favorite/character/<int:character_id>', methods=['DELETE'])
 def delete_favorite_character(character_id):
-    user_id = 1
+   # Getting the user by id
+    request_data = request.json
+    user_id = request_data.get('user_id')
+
+    if user_id is None:
+        return jsonify({"Message": "Wait!: user_id needed"}), 400
+    
+    # Checking the user
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({"Message": "User not found"}), 404
+    
+    # Making the queries
     user = User.query.get(user_id)
     favorite = Favorite.query.filter_by(user_id=user.id, character_id=character_id).first()
 
